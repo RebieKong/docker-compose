@@ -3,20 +3,20 @@ version: '2'
 services:
   es:
     build: ./elasticsearch/image/
-    container_name: 'super::elasticsearch'
+    container_name: 'super.elasticsearch'
     restart: always
   db:
     image: mysql:5.7.30
     ports:
       - 3306
-    container_name: 'super::mysql'
+    container_name: 'super.mysql'
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 111111
   db-admin:
     image: adminer
-    container_name: 'super::mysql-admin'
+    container_name: 'super.mysql-admin'
     restart: always
     ports:
       - 8080
