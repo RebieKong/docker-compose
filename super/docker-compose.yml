@@ -1,33 +1,13 @@
-version: "2"
- 
+version: '2'
+
 services:
-  master:
-    image: spark:2.4.6
-    command: start-spark master
-    hostname: master
+  elasticsearch:
+    build: ./elasticsearch/image
+    container_name: 'elasticsearch'
+    restart: unless-stopped
+  mysql:
+    image: mysql:5.7.30
     ports:
-      - "44040:4040"
-      - "6066:6066"
-      - "7077:7077"
-      - "8080:8080"
-      - "50070:50070"
-  worker1:
-    image: spark:2.4.6
-    command: start-spark worker master
-    depends_on:
-      - master
-    environment:
-      SPARK_WORKER_CORES: 2
-      SPARK_WORKER_MEMORY: 4g
-    links:
-      - master
-  worker2:
-    image: spark:2.4.6
-    command: start-spark worker master
-    depends_on:
-      - master
-    environment:
-      SPARK_WORKER_CORES: 2
-      SPARK_WORKER_MEMORY: 4g
-    links:
-      - master
+      - 3306:3306
+    container_name: 'mysql'
+    restart: unless-stopped
