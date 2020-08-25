@@ -4,13 +4,16 @@ services:
   es:
     build: ./elasticsearch/image/
     container_name: 'super.elasticsearch'
+    ports:
+      - 9200
+      - 9300
     restart: always
   db:
     image: mysql:5.7.30
     ports:
       - 3306
     container_name: 'super.mysql'
-    command: --default-authentication-plugin=mysql_native_password
+    command: --default-charset=utf8 --default-timezone=+8:00 --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 111111
