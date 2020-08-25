@@ -1,13 +1,21 @@
 version: '2'
 
 services:
-  elasticsearch:
+  es:
     build: ./elasticsearch/image
     container_name: 'elasticsearch'
     restart: unless-stopped
-  mysql:
+  db:
     image: mysql:5.7.30
     ports:
-      - 3306:3306
+      - 3306
     container_name: 'mysql'
-    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+  db-admin:
+    image: adminer
+    restart: always
+    ports:
+      - 8080
