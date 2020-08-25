@@ -1,0 +1,33 @@
+version: "2"
+ 
+services:
+  master:
+    image: spark:2.4.6
+    command: start-spark master
+    hostname: master
+    ports:
+      - "44040:4040"
+      - "6066:6066"
+      - "7077:7077"
+      - "8080:8080"
+      - "50070:50070"
+  worker1:
+    image: spark:2.4.6
+    command: start-spark worker master
+    depends_on:
+      - master
+    environment:
+      SPARK_WORKER_CORES: 2
+      SPARK_WORKER_MEMORY: 4g
+    links:
+      - master
+  worker2:
+    image: spark:2.4.6
+    command: start-spark worker master
+    depends_on:
+      - master
+    environment:
+      SPARK_WORKER_CORES: 2
+      SPARK_WORKER_MEMORY: 4g
+    links:
+      - master
