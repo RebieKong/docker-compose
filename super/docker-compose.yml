@@ -15,7 +15,7 @@ services:
     ports:
       - 3306
     container_name: 'super.mysql'
-    command:  --character-set-server=utf8 --default-timezone=+8:00 --default-authentication-plugin=mysql_native_password
+    command:  --character-set-server=utf8 --default-authentication-plugin=mysql_native_password
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: 111111
